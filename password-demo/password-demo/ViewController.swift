@@ -27,7 +27,8 @@ extension ViewController{
     
     func layout(){
         view.addSubview(newPasswordTextField)
-        newPasswordTextField.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         newPasswordTextField.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
+        newPasswordTextField.leadingAnchor.constraint(equalToSystemSpacingAfter: view.leadingAnchor, multiplier: 1).isActive = true
+        view.trailingAnchor.constraint(equalToSystemSpacingAfter: newPasswordTextField.trailingAnchor, multiplier: 1).isActive = true
     }
 }

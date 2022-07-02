@@ -15,7 +15,7 @@ class PasswordTextField: UIView {
     let placeHolderText : String
     let eyeButton = UIButton(type: .custom)
     let dividerView = UIView()
-    
+    let errorLabel = UILabel()
     
 //    override init(frame: CGRect) {
 //        super.init(frame: frame)
@@ -35,7 +35,7 @@ class PasswordTextField: UIView {
     }
     
     override var intrinsicContentSize: CGSize {
-        return CGSize(width: 200, height: 70)
+        return CGSize(width: 200, height: 90)
     }
 }
 
@@ -43,7 +43,7 @@ extension PasswordTextField {
     
     func style() {
         translatesAutoresizingMaskIntoConstraints = false
-        backgroundColor = .systemTeal
+        backgroundColor = .secondarySystemFill
         
         lockImageView.translatesAutoresizingMaskIntoConstraints = false
         
@@ -61,6 +61,18 @@ extension PasswordTextField {
         // dividerView
         dividerView.translatesAutoresizingMaskIntoConstraints = false
         dividerView.backgroundColor = .separator
+        // errorLabel
+        errorLabel.translatesAutoresizingMaskIntoConstraints = false
+        errorLabel.font = UIFont.preferredFont(forTextStyle: .footnote)
+        errorLabel.textColor = .systemPink
+        errorLabel.text = "Something went wrong. Your password must met the requierements below"
+        //errorLabel.textAlignment = .center
+        //errorLabel.adjustsFontSizeToFitWidth = true// affects accesibility, not recomended
+        //errorLabel.minimumScaleFactor = 0.8// if set to zero autolaout will reduce it until all fits
+        errorLabel.isHidden = false
+        errorLabel.numberOfLines = 0 // multiline
+        errorLabel.lineBreakMode = .byWordWrapping
+        
     }
     
     func layout() {
@@ -68,6 +80,7 @@ extension PasswordTextField {
         addSubview(textField)
         addSubview(eyeButton)
         addSubview(dividerView)
+        addSubview(errorLabel)
         // lock
         lockImageView.centerYAnchor.constraint(equalTo: textField.centerYAnchor).isActive = true
         lockImageView.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true
@@ -87,6 +100,10 @@ extension PasswordTextField {
         dividerView.topAnchor.constraint(equalToSystemSpacingBelow: textField.bottomAnchor, multiplier: 1).isActive = true
         dividerView.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true
         dividerView.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
+        // errorLabel
+        errorLabel.topAnchor.constraint(equalTo: dividerView.bottomAnchor, constant: 4).isActive = true
+        errorLabel.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true
+        errorLabel.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
     }
 }
 // MARK: Actions
