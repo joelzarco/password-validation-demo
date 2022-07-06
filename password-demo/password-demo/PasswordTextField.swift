@@ -65,7 +65,7 @@ extension PasswordTextField {
         errorLabel.translatesAutoresizingMaskIntoConstraints = false
         errorLabel.font = UIFont.preferredFont(forTextStyle: .footnote)
         errorLabel.textColor = .systemPink
-        errorLabel.text = "Something went wrong. Your password must met the requierements below"
+        errorLabel.text = "Something went wrong. Your password must meet the requierements below"
         //errorLabel.textAlignment = .center
         //errorLabel.adjustsFontSizeToFitWidth = true// affects accesibility, not recomended
         //errorLabel.minimumScaleFactor = 0.8// if set to zero autolaout will reduce it until all fits

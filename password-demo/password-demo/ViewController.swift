@@ -10,6 +10,9 @@ import UIKit
 class ViewController: UIViewController {
     
     let newPasswordTextField = PasswordTextField(placeHolderText: "New password")
+    let stackView = UIStackView()
+    let criteriaView = PasswordCriteriaView(text: "upperCase letter (A-Z)")
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -22,13 +25,26 @@ class ViewController: UIViewController {
 extension ViewController{
     
     func style(){
+        
         newPasswordTextField.translatesAutoresizingMaskIntoConstraints = false
+        criteriaView.translatesAutoresizingMaskIntoConstraints = false
+        
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.axis = .vertical
+        stackView.spacing = 20
+        
     }
     
     func layout(){
-        view.addSubview(newPasswordTextField)
-        newPasswordTextField.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
-        newPasswordTextField.leadingAnchor.constraint(equalToSystemSpacingAfter: view.leadingAnchor, multiplier: 1).isActive = true
-        view.trailingAnchor.constraint(equalToSystemSpacingAfter: newPasswordTextField.trailingAnchor, multiplier: 1).isActive = true
+        //
+        view.addSubview(stackView)
+        
+//        stackView.addArrangedSubview(newPasswordTextField)
+        stackView.addArrangedSubview(criteriaView)
+        
+        stackView.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
+        stackView.leadingAnchor.constraint(equalToSystemSpacingAfter: view.leadingAnchor, multiplier: 2).isActive = true
+        view.trailingAnchor.constraint(equalToSystemSpacingAfter: stackView.trailingAnchor, multiplier: 2).isActive = true
+
     }
 }
