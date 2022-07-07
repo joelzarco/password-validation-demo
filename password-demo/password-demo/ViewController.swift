@@ -11,14 +11,15 @@ class ViewController: UIViewController {
     
     let newPasswordTextField = PasswordTextField(placeHolderText: "New password")
     let stackView = UIStackView()
-    let criteriaView = PasswordCriteriaView(text: "upperCase letter (A-Z)")
+//    let criteriaView = PasswordCriteriaView(text: "upperCase letter (A-Z)")
+    let statusView = PasswordStatusView()
+    let confirmPassword = PasswordTextField(placeHolderText: "Re-enter new password")
+    let resetButton = UIButton(type: .system)
     
-
     override func viewDidLoad() {
         super.viewDidLoad()
         style()
         layout()
-        
     }
 }
 
@@ -27,20 +28,33 @@ extension ViewController{
     func style(){
         
         newPasswordTextField.translatesAutoresizingMaskIntoConstraints = false
-        criteriaView.translatesAutoresizingMaskIntoConstraints = false
+        confirmPassword.translatesAutoresizingMaskIntoConstraints = false
+        
+        statusView.translatesAutoresizingMaskIntoConstraints = false
+        statusView.layer.cornerRadius = 8
+        statusView.clipsToBounds = true
+
         
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .vertical
         stackView.spacing = 20
-        
+
+        resetButton.translatesAutoresizingMaskIntoConstraints = false
+        resetButton.configuration = .filled()
+        resetButton.setTitle("Reset password", for: [])
+//        resetButton.addTarget(self, action: #selector(resetPasswordButton), for: .primaryActionTriggered)
     }
     
     func layout(){
         //
-        view.addSubview(stackView)
+
         
-//        stackView.addArrangedSubview(newPasswordTextField)
-        stackView.addArrangedSubview(criteriaView)
+        stackView.addArrangedSubview(newPasswordTextField)
+        stackView.addArrangedSubview(statusView)
+        stackView.addArrangedSubview(confirmPassword)
+        stackView.addArrangedSubview(resetButton)
+
+        view.addSubview(stackView)
         
         stackView.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
         stackView.leadingAnchor.constraint(equalToSystemSpacingAfter: view.leadingAnchor, multiplier: 2).isActive = true

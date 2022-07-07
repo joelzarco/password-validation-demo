@@ -57,10 +57,10 @@ extension PasswordCriteriaView{
         stackView.translatesAutoresizingMaskIntoConstraints = false
         imageView.translatesAutoresizingMaskIntoConstraints = false
         
-        //backgroundColor = .systemPink
+//        backgroundColor = .secondarySystemBackground
         stackView.axis = .horizontal
         stackView.spacing = 8
-        stackView.backgroundColor = .secondarySystemFill
+//        stackView.backgroundColor = .secondarySystemBackground
         //
         imageView.image = UIImage(systemName: "circle")!.withTintColor(.tertiaryLabel, renderingMode: .alwaysOriginal)// color on SFSymbol
         // label
