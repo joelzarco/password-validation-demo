@@ -20,6 +20,9 @@ class PasswordStatusView: UIView{
     
     let criteriaLabel = UILabel()
     
+    // Used to determine if we reset criteria back to empty state
+    private var shouldResetCriteria : Bool = true
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         
@@ -96,5 +99,16 @@ extension PasswordStatusView{
         attrText.append(NSAttributedString(string: "criteria when setting your password:", attributes: plainTextAttributes))
 
         return attrText
+    }
+}
+
+// MARK: Actions
+extension PasswordStatusView{
+    func updateDisplay(_ text : String) {
+        let lengthAndSpaceMet = PasswordCriteria.lengthAndNoSpaceMet(text)
+        if shouldResetCriteria{
+            // Inline validation, ternary operator
+            lengthAndSpaceMet ? lengthCriteriaView.isCriteriaMet = true : lengthCriteriaView.reset()
+        }
     }
 }

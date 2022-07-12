@@ -8,6 +8,11 @@
 import Foundation
 import UIKit
 
+// protocol-delegate to comunicate to vc
+protocol PasswordDelegate : AnyObject{
+    func editingChanged(_ sender : PasswordTextField)
+}
+
 class PasswordTextField: UIView {
     
     let lockImageView = UIImageView(image: UIImage(systemName: "lock.fill"))
@@ -17,12 +22,15 @@ class PasswordTextField: UIView {
     let dividerView = UIView()
     let errorLabel = UILabel()
     
+    weak var delegate : PasswordDelegate?
+    
 //    override init(frame: CGRect) {
 //        super.init(frame: frame)
 //
 //        style()
 //        layout()
 //    }
+    
     init(placeHolderText : String){
         self.placeHolderText = placeHolderText// called before super.init
         super.init(frame: .zero)
@@ -50,9 +58,10 @@ extension PasswordTextField {
         textField.translatesAutoresizingMaskIntoConstraints = false
         textField.isSecureTextEntry = false // change to true in prod
         textField.placeholder = placeHolderText
-//        textField.delegate = self
+        textField.delegate = self
         textField.keyboardType = .asciiCapable// ascii capable, no emojis :(
         textField.attributedPlaceholder = NSAttributedString(string: placeHolderText, attributes: [NSAttributedString.Key.foregroundColor : UIColor.secondaryLabel])
+        textField.addTarget(self, action: #selector(textFieldEditingChanged), for: .editingChanged)
         //eye
         eyeButton.translatesAutoresizingMaskIntoConstraints = false
         eyeButton.setImage(UIImage(systemName: "eye.circle"), for: .normal)
@@ -69,7 +78,7 @@ extension PasswordTextField {
         //errorLabel.textAlignment = .center
         //errorLabel.adjustsFontSizeToFitWidth = true// affects accesibility, not recomended
         //errorLabel.minimumScaleFactor = 0.8// if set to zero autolaout will reduce it until all fits
-        errorLabel.isHidden = false
+        errorLabel.isHidden = true
         errorLabel.numberOfLines = 0 // multiline
         errorLabel.lineBreakMode = .byWordWrapping
         
@@ -113,5 +122,14 @@ extension PasswordTextField{
         textField.isSecureTextEntry.toggle()
         eyeButton.isSelected.toggle()
     }
+    
+    @objc func textFieldEditingChanged(_ sender : UITextField){
+        print("foo - \(sender.text!)")
+        delegate?.editingChanged(self)
+    }
+}
+
+// MARK: UITextField Protocol
+extension PasswordTextField: UITextFieldDelegate{
     
 }

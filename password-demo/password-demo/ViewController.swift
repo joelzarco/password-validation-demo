@@ -26,12 +26,14 @@ class ViewController: UIViewController {
 extension ViewController{
     
     func style(){
+        // register to receive from text field
+        newPasswordTextField.delegate = self
         
         newPasswordTextField.translatesAutoresizingMaskIntoConstraints = false
         confirmPassword.translatesAutoresizingMaskIntoConstraints = false
         
         statusView.translatesAutoresizingMaskIntoConstraints = false
-        statusView.layer.cornerRadius = 8
+        statusView.layer.cornerRadius = 10
         statusView.clipsToBounds = true
 
         
@@ -47,8 +49,6 @@ extension ViewController{
     
     func layout(){
         //
-
-        
         stackView.addArrangedSubview(newPasswordTextField)
         stackView.addArrangedSubview(statusView)
         stackView.addArrangedSubview(confirmPassword)
@@ -60,5 +60,14 @@ extension ViewController{
         stackView.leadingAnchor.constraint(equalToSystemSpacingAfter: view.leadingAnchor, multiplier: 2).isActive = true
         view.trailingAnchor.constraint(equalToSystemSpacingAfter: stackView.trailingAnchor, multiplier: 2).isActive = true
 
+    }
+}
+
+extension ViewController : PasswordDelegate{
+    // delegate implementation
+    func editingChanged(_ sender: PasswordTextField) {// to differentiate between text fields
+        if sender === newPasswordTextField{
+            statusView.updateDisplay(sender.textField.text ?? "")
+        }
     }
 }
