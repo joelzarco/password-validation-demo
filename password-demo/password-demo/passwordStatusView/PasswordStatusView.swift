@@ -103,6 +103,7 @@ extension PasswordStatusView{
 
 // MARK: Actions
 extension PasswordStatusView{
+    // delegate implemenation/call comes from main VC
     func updateDisplay(_ text : String) {
         let lengthAndSpaceMet = PasswordCriteria.lengthAndNoSpaceMet(text)
         let uppercaseMet = PasswordCriteria.uppercaseMet(text)

@@ -20,11 +20,25 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         style()
         layout()
+        setup()
     }
 }
 
 extension ViewController{
     
+    func setup(){
+        // in order to dissmiss keyboard when user taps in view
+        setupDismissKeyboardGesture()
+    }
+    
+    private func setupDismissKeyboardGesture(){
+        let dismissKeyboardTap = UITapGestureRecognizer(target: self, action: #selector(viewTapped(_: )))
+        view.addGestureRecognizer(dismissKeyboardTap)
+    }
+    
+    @objc func viewTapped(_ recognizer : UITapGestureRecognizer){
+        view.endEditing(true) // force to resign first responder
+    }
     func style(){
         // register to receive from text field
         newPasswordTextField.delegate = self

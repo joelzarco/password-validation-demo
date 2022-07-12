@@ -124,12 +124,21 @@ extension PasswordTextField{
     }
     
     @objc func textFieldEditingChanged(_ sender : UITextField){
-        print("foo - \(sender.text!)")
+//        print("foo - \(sender.text!)")
         delegate?.editingChanged(self)
     }
 }
 
-// MARK: UITextField Protocol
-extension PasswordTextField: UITextFieldDelegate{
-    
+extension PasswordTextField: UITextFieldDelegate {
+    // detect when focus is lost, for example when touched the other textField
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        print("foo - textFieldDidEndEditing: \(textField.text!)")
+    }
+
+    // Called when 'return' key pressed. Dissmisses the keyboard!!!
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        print("foo - textFieldShouldReturn")
+        textField.endEditing(true) // resign first responder
+        return true
+    }
 }
