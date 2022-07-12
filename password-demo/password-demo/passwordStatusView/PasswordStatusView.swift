@@ -60,7 +60,6 @@ extension PasswordStatusView{
         
         stackView.axis = .vertical
         stackView.spacing = 6
-//        stackView.backgroundColor = .secondarySystemFill
         
         stackView.addArrangedSubview(lengthCriteriaView)
         stackView.addArrangedSubview(criteriaLabel)
@@ -69,10 +68,10 @@ extension PasswordStatusView{
         stackView.addArrangedSubview(digitCriteriaView)
         stackView.addArrangedSubview(specialCharacterCriteriaView)
         
-        // to avoid ambiguity in height:
+        // to avoid ambiguity in height there are several options:
         // 1.- harcode heights
         // 2.- adjust view's intrinsic content size
-        // 3.- DO NOT pin to bottom anchor, downside when there are many items in stack
+        // 3.- DO NOT pin to bottom anchor, downside when there are many items in the stack
         // 4.- change distributions
         stackView.distribution = .equalCentering
     }
@@ -106,9 +105,17 @@ extension PasswordStatusView{
 extension PasswordStatusView{
     func updateDisplay(_ text : String) {
         let lengthAndSpaceMet = PasswordCriteria.lengthAndNoSpaceMet(text)
+        let uppercaseMet = PasswordCriteria.uppercaseMet(text)
+        let lowercaseMet = PasswordCriteria.lowercaseMet(text)
+        let digitMet = PasswordCriteria.digitMet(text)
+        
         if shouldResetCriteria{
             // Inline validation, ternary operator
+            // if criteria is met ? update criteria image(green checkmark) : else reset() criteria image(gray empty circle)
             lengthAndSpaceMet ? lengthCriteriaView.isCriteriaMet = true : lengthCriteriaView.reset()
+            uppercaseMet ? uppercaseCriteriaView.isCriteriaMet = true : uppercaseCriteriaView.reset()
+            lowercaseMet ? lowerCaseCriteriaView.isCriteriaMet = true : lowerCaseCriteriaView.reset()
+            digitMet ? digitCriteriaView.isCriteriaMet = true : digitCriteriaView.reset()
         }
     }
 }

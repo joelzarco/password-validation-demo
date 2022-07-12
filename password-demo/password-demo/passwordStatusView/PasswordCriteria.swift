@@ -22,5 +22,16 @@ struct PasswordCriteria{
         // booth need to be true
         return lengthCriteriaMet(text) && noSpaceCriteriaMet(text)
     }
-    
+    // uppercase regex
+    static func uppercaseMet(_ text : String) -> Bool{
+        return text.range(of: "[A-Z]+", options: .regularExpression) != nil
+    }
+    // lowercase regex
+    static func lowercaseMet(_ text : String) -> Bool{
+        return text.range(of: "[a-z]+", options: .regularExpression) != nil
+    }
+    // digit regex
+    static func digitMet(_ text : String) -> Bool{
+        return text.range(of: "[0-9]+", options: .regularExpression) != nil
+    }
 }
