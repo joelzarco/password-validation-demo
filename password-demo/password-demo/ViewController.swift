@@ -21,6 +21,7 @@ class ViewController: UIViewController {
         style()
         layout()
         setup()
+        hideKeyboard()
     }
 }
 
@@ -38,6 +39,12 @@ extension ViewController{
     
     @objc func viewTapped(_ recognizer : UITapGestureRecognizer){
         view.endEditing(true) // force to resign first responder
+    }
+    
+    // brute force approach, move view's origin when keyboard is detected
+    private func hideKeyboard(){
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
     }
     func style(){
         // register to receive from text field
@@ -83,5 +90,21 @@ extension ViewController : PasswordDelegate{
         if sender === newPasswordTextField{
             statusView.updateDisplay(sender.textField.text ?? "")
         }
+    }
+    
+    func editingDidEnd(_ sender: PasswordTextField) {
+        print("editingDidEnd!")
+        print(sender.textField.text!)
+    }
+}
+
+// MARK: KEYBOARD
+extension ViewController{
+    @objc func keyboardWillShow(sender : NSNotification){
+        view.frame.origin.y = view.frame.origin.y - 200 // -200 is movin' up view
+    }
+    
+    @objc func keyboardWillHide(sender : NSNotification){
+        view.frame.origin.y = 0
     }
 }

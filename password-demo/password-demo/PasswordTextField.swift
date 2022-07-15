@@ -11,6 +11,7 @@ import UIKit
 // protocol-delegate to comunicate to vc
 protocol PasswordDelegate : AnyObject{
     func editingChanged(_ sender : PasswordTextField)
+    func editingDidEnd(_ sender : PasswordTextField)
 }
 
 class PasswordTextField: UIView {
@@ -132,7 +133,9 @@ extension PasswordTextField{
 extension PasswordTextField: UITextFieldDelegate {
     // detect when focus is lost, for example when touched the other textField
     func textFieldDidEndEditing(_ textField: UITextField) {
-        print("foo - textFieldDidEndEditing: \(textField.text!)")
+//        print("foo - textFieldDidEndEditing: \(textField.text!)")
+        // fire delegate
+        delegate?.editingDidEnd(self)
     }
 
     // Called when 'return' key pressed. Dissmisses the keyboard!!!
